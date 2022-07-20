@@ -12,11 +12,16 @@ async def root():
     data =  pnsController()
     data = data.show_all()
     return {
-        "Status": data.status,
-        "results": data.results
+        "Status": data['status'],
+        "results": data['results']
     }
 
-@app.get("/{item_id}")
-async def read_item(q: Union[str, None] = None):
-    data =  pnsController()
-    return data.show_by_month(q)
+@app.get("/bulan/{q}")
+async def read_item(q: str):
+    data = pnsController()
+    data = data.show_by_month(q)
+    return {
+        "Status": data['status'],
+        "results": data['results'],
+        "q" : q
+    }
