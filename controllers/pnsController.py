@@ -12,14 +12,17 @@ class pnsController:
         cursor.execute(sql)
         results = cursor.fetchall()
         datas = []
-        if cursor.rowcount < 0:
-            return None
-        else:
-            for idx in results:
-                data = pns(idx[1], idx[2], idx[3], idx[4], idx[5], idx[6])
-                datas.append(data)
 
-        return datas
+        for idx in results:
+            data = pns(idx[1], idx[2], idx[3], idx[4], idx[5], idx[6])
+            datas.append(data)
+
+        response = {
+            "status":200,
+            "results": datas
+        }
+
+        return response
 
     def show_by_month(self, key):
         cursor = self.db.cursor()
@@ -27,14 +30,17 @@ class pnsController:
         cursor.execute(sql, key)
         results = cursor.fetchall()
         datas = []
-        if cursor.rowcount < 0:
-            return None
-        else:
-            for idx in results:
-                data = pns(idx[1], idx[2], idx[3], idx[4], idx[5], idx[6])
-                datas.append(data)
+ 
+        for idx in results:
+            data = pns(idx[1], idx[2], idx[3], idx[4], idx[5], idx[6])
+            datas.append(data)
+        
+        response = {
+            "status":200,
+            "results": datas
+        }
 
-        return datas
+        return response
 
     def insert_data(self, data):
         cursor = self.db.cursor()
