@@ -1,27 +1,25 @@
-# main.py
-
-from typing import Union
-
 from fastapi import FastAPI
-from controllers.pnsController import pnsController
+from fastapi.middleware.cors import CORSMiddleware
+from routes.pns import pns
+from routes.apbd import apbd
+from routes.apbn import apbn
 
 app = FastAPI()
 
+def cors_headers(app):
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_methods=["*"],
+        allow_headers=["*"],
+        allow_credentials=True,
+        )
+    return app
+
+app.include_router(pns)
+app.include_router(apbn)
+app.include_router(apbd)
+
 @app.get("/")
 async def root():
-    data =  pnsController()
-    data = data.show_all()
-    return {
-        "Status": data['status'],
-        "results": data['results']
-    }
-
-@app.get("/bulan/{q}")
-async def read_item(q: str):
-    data = pnsController()
-    data = data.show_by_month(q)
-    return {
-        "Status": data['status'],
-        "results": data['results'],
-        "q" : q
-    }
+    return {"message": "Check server"}
