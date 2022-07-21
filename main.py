@@ -22,4 +22,4 @@ app.include_router(apbd)
 
 @app.get("/")
 async def root():
-    return {"message": "Check server"}
+    return {"message": "Check server documentation"}
