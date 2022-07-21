@@ -1,8 +1,19 @@
-class Pns:
-    def __init__(self, nama, nip, tLahir, jabatan, bulan, img_url):
-        self.nama = str(nama)
-        self.nip = str(nip)
-        self.tLahir = str(tLahir)
-        self.jabatan = str(jabatan)
-        self.bulan = str(bulan)
-        self.img_url = str(img_url)
+from sqlalchemy import (
+    Column,
+    Integer,
+    MetaData,
+    String,
+    Table,
+)
+
+metadata = MetaData()
+Pns = Table(
+    "pns", metadata,
+    Column("id", Integer, primary_key=True, index=True),
+    Column("nama", String(255), nullable=False),
+    Column("nip", String(255), nullable=False),
+    Column("tLahir", String(255), nullable=False),
+    Column("jabatan", String(255), nullable=False),
+    Column("bulan", String(255), nullable=False),
+    Column('img_url', String(255), unique=True, nullable=True)
+)
